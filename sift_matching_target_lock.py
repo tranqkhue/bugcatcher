@@ -94,12 +94,12 @@ pipeline.start(config)
 # Disable laser emitter
 ir_sensor = pipeline.get_active_profile().get_device().query_sensors()[0]
 ir_sensor.set_option(rs.option.emitter_enabled, 0)
-ir_sensor.set_option(rs.option.enable_auto_exposure, 1)
-#ir_sensor.set_option(rs.option.exposure, 40000)
+ir_sensor.set_option(rs.option.enable_auto_exposure, 0)
+ir_sensor.set_option(rs.option.exposure, 15)
 rgb_sensor = pipeline.get_active_profile().get_device().query_sensors()[1]
 rgb_sensor.set_option(rs.option.enable_auto_white_balance, 0)
-rgb_sensor.set_option(rs.option.enable_auto_exposure, 1)
-#rgb_sensor.set_option(rs.option.exposure, 400)
+rgb_sensor.set_option(rs.option.enable_auto_exposure, 0)
+rgb_sensor.set_option(rs.option.exposure, 27)
 
 #---------------------------------------------------------------------------------
 FEATURE_EXTRACTOR = 'sift'
@@ -161,7 +161,7 @@ try:
 			subtracted = cv2.subtract(aligned_ir, gray_frame)
 			cv2.imshow('warped subtracted', subtracted)
 
-			thresh = cv2.threshold(subtracted, 200, 255, cv2.THRESH_BINARY)[1]
+			thresh = cv2.threshold(subtracted, 150, 255, cv2.THRESH_BINARY)[1]
 			thresh = cv2.erode(thresh,  None, iterations=2)
 			thresh = cv2.dilate(thresh, None, iterations=4)
 			cv2.imshow('threshold', thresh)
